@@ -1,6 +1,6 @@
 # Mode can be set to either "demo" or "release"
 # TODO: Use two final targets instead of manually setting this flag when invoking `make`
-MODE	:= demo
+MODE	:= release
 ifeq ($(MODE), demo)
 DEMO_MODE	:= true
 else
@@ -46,7 +46,10 @@ ZYNADDSUBFX_INSTALL_DIR = $(PREFIX_PATH)/zynfx_install
 
 TAR_UNPACK		:= tar -x --strip-components 1 -f
 
-all: zynaddsubfx zest package
+all:
+	$(MAKE) -f $(firstword $(MAKEFILE_LIST)) zynaddsubfx
+	$(MAKE) -f $(firstword $(MAKEFILE_LIST)) zest
+	$(MAKE) -f $(firstword $(MAKEFILE_LIST)) package
 
 zynaddsubfx: get_zynaddsubfx build_zynaddsubfx
 .PHONY: zynaddsubfx
@@ -96,47 +99,13 @@ help:
 prepare_workspace:
 	mkdir -p $(WORKPATH) $(DOWNLOAD_PATH) $(DEPS_PATH) $(GIT_SRC_PATH) $(PREFIX_PATH)
 
-fetch_zynaddsubfx: prepare_workspace
-	$(info ========== Fetching ZynAddSubFX ==========)
-	$(info \n)
-ifeq (, $(wildcard $(ZYNADDSUBFX_PATH)))
-	$(info ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━)
-	$(info WARNING!)
-	$(info ZynAddSubFX is not fetched.)
-	$(info Running `git clone` to get it.)
-	$(info ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━)
-	git clone $(ZYNADDSUBFX_REPO_URL) $(ZYNADDSUBFX_PATH)
-endif
-ifneq ($(ZYNADDSUBFX_COMMIT), DIRTY)
-	cd $(ZYNADDSUBFX_PATH); \
-	git fetch; \
-	git checkout $(ZYNADDSUBFX_COMMIT); \
-	git submodule update --init --recursive
-else
-	cd $(ZYNADDSUBFX_PATH); \
-	git submodule update --init --recursive
-endif
+fetch_zynaddsubfx: prepare_workspace update_submodules
 
-fetch_zest: prepare_workspace
-	$(info ========== Fetching Zest ==========)
-	$(info \n)
-ifeq (,$(wildcard $(ZEST_PATH)))
-	$(info ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━)
-	$(info WARNING!)
-	$(info Zest is not fetched.)
-	$(info Running `git clone` to get it.)
-	$(info ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━)
-	git clone $(ZEST_REPO_URL) $(ZEST_PATH)
-endif
-ifneq ($(ZEST_COMMIT), DIRTY)
-	cd $(ZEST_PATH); \
-	git fetch; \
-	git checkout $(ZEST_COMMIT); \
-	git submodule update --init
-else
-	cd $(ZEST_PATH); \
-	git submodule update --init
-endif
+fetch_zest: prepare_workspace update_submodules
+
+.PHONY: update_submodules
+update_submodules:
+	git submodule update --init --recursive
 
 
 # Clean built files, except those in dependencies' source path (as you can rebuild Zyn/Zest faster).

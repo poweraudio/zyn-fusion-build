@@ -1,0 +1,6 @@
+[submodule "src/zynaddsubfx"]
+	path = src/zynaddsubfx
+	url = https://github.com/zynaddsubfx/zynaddsubfx
+[submodule "src/mruby-zest-build"]
+	path = src/mruby-zest-build
+	url = https://github.com/poweraudio/mruby-zest-build

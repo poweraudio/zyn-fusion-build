@@ -12,7 +12,7 @@ OS		:= linux
 #
 get_zynaddsubfx: fetch_zynaddsubfx
 
-build_zynaddsubfx:
+build_zynaddsubfx: get_zynaddsubfx
 	$(info ========== Building ZynAddSubFX in $(MODE) mode ==========)
 
 	rm -rf $(ZYNADDSUBFX_BUILD_DIR)
@@ -23,6 +23,7 @@ build_zynaddsubfx:
 		-DGuiModule=zest \
 		-DDemoMode=$(DEMO_MODE) \
 		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release
 
 	$(MAKE) -C $(ZYNADDSUBFX_BUILD_DIR)
 
@@ -45,7 +46,7 @@ setup_zest: fetch_zest revoke_mruby_patches
 #
 get_zest: fetch_zest revoke_mruby_patches setup_zest
 
-build_zest:
+build_zest: get_zest
 	$(info ========== Building Zest in $(MODE) mode ==========)
 
 	$(MAKE) -C $(ZEST_PATH) clean

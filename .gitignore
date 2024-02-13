@@ -20,4 +20,3 @@ pkg/share/info/dir
 test.rb
 tmp/**
 build/**
-src/**
