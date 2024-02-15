@@ -95,6 +95,7 @@ copy_zest_files: preinstall_zynaddsubfx
 	cp	  $(ZEST_PATH)/install-linux.sh $(ZYN_FUSION_OUT)/
 	cp	  $(ZEST_PATH)/package-README.txt $(ZYN_FUSION_OUT)/README.txt
 	cp	  $(ZYNADDSUBFX_PATH)/COPYING $(ZYN_FUSION_OUT)/COPYING.zynaddsubfx
+	cp   -a $(ZEST_PATH)/completions $(ZYN_FUSION_OUT)/
 
 package: preinstall_zynaddsubfx copy_zest_files
 	rm -rf $(TARGET_TAR_FILE)
