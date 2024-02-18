@@ -1,3 +1,24 @@
+**PowerAudio fork of Zyn-Fusion**
+
+This fork of Zyn-Fusion’s build scripts includes the following changes:
+
+* The installation destination on GNU/Linux is customizable and defaults to
+  /usr/local.
+* The top-level `make` can be invoked with `-j`; e.g.,
+  `make -j20 -f Makefile.linux.mk` works without the need for the `PARALLEL`
+  variable.
+* ZynAddSubFX and Zest are included as submodules rather than being fetched
+  by the build scripts.
+* Fixed installation of Bash completions.
+
+All changes in this fork are released to the public domain using [CC0], or
+(at your option) licensed under the same license as the original repository
+(see [COPYING](COPYING)).
+
+[CC0]: https://creativecommons.org/publicdomain/zero/1.0/
+
+---
+
 # Zyn-Fusion Build Scripts
 
 These are the build scripts used to generate the Zyn-Fusion packages.
