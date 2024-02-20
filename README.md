@@ -10,6 +10,8 @@ This fork of Zyn-Fusion’s build scripts includes the following changes:
 * ZynAddSubFX and Zest are included as submodules rather than being fetched
   by the build scripts.
 * Fixed installation of Bash completions.
+* Tests in ZynAddSubFX are not compiled; this fixes linker errors/warnings with
+  LTO.
 
 All changes in this fork are released to the public domain using [CC0], or
 (at your option) licensed under the same license as the original repository

@@ -23,7 +23,8 @@ build_zynaddsubfx: get_zynaddsubfx
 		-DGuiModule=zest \
 		-DDemoMode=$(DEMO_MODE) \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DCMAKE_BUILD_TYPE=Release
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCompileTests=OFF
 
 	$(MAKE) -C $(ZYNADDSUBFX_BUILD_DIR)
 
