@@ -24,7 +24,8 @@ build_zynaddsubfx: get_zynaddsubfx
 		-DDemoMode=$(DEMO_MODE) \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DCompileTests=OFF
+		-DCompileTests=OFF \
+		-DWerror=OFF
 
 	$(MAKE) -C $(ZYNADDSUBFX_BUILD_DIR)
 
